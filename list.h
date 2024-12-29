@@ -1,56 +1,53 @@
-#include <String>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
-#include "PASRSING.h"
+#include "PASRSING.h" // Предполагается, что функция parseFullName реализована
 
-struct Node{
-	std::string surname;
-	std::string name;
-	std::string patronymic;
-	Node*next;
+struct Node {
+    std::string surname;
+    std::string name;
+    std::string patronymic;
+    Node* next;
 
-
-	Node( std::string surname,  std::string name,  std::string patronymic){
-		surname = surname;
-		name = name;
-		patronymic = patronymic;
-
-	}
-
+    Node(std::string surname, std::string name, std::string patronymic) {
+        this->surname = surname;
+        this->name = name;
+        this->patronymic = patronymic;
+        this->next = nullptr;
+    }
 };
 
-
-class List{
-	public:
-	Node* head;
+class List {
+public:
+    Node* head;
 
 public:
-	List(){
-		head = nullptr;
-	}
+    List() : head(nullptr) {}
 
-	~List(){
-		Node* current = head;
-		do{
-			current = head->next;
-			delete head;
-			head = current;
-		}while(current!= nullptr);
-	}
+    ~List() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* nextNode = current->next;
+            delete current;
+            current = nextNode;
+        }
+        head = nullptr; // Обнуляем указатель головы
+    }
 
-	void add(std::string& surname, std:: string& name, std::string& patronymic){
-		Node* newNode = new Node(surname, name, patronymic);
-		if(head = nullptr){
-			head = newNode;
-		}else{
-			Node* current = head;
-			while(current->next != nullptr){
-				current = current->next;
-			}
-			current->next = newNode;
-		}
-	}
+    void add(const std::string& surname, const std::string& name, const std::string& patronymic) {
+        Node* newNode = new Node(surname, name, patronymic);
+
+        if (head == nullptr) {
+            head = newNode;
+        } else {
+            Node* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+    }
 
     void fillFromFile(const std::string& filename) {
         std::ifstream file(filename);
@@ -66,22 +63,27 @@ public:
         }
     }
 
-	bool isEmpty() const {
-      	return head == nullptr;
+    bool isEmpty() const {
+        return head == nullptr;
     }
 
-	void print(){
-		Node* current = head;
-		while(current!=nullptr){
-			std::cout<< current->name << " " << current->surname << " " << current->patronymic;
-			current = current->next;
-		}
-	}
-	    Node* pop() {
+    void print() {
+        Node* current = head;
+        while (current != nullptr) {
+            std::cout << current->surname << " " << current->name << " " << current->patronymic << std::endl;
+            current = current->next;
+        }
+    }
+
+    Node* pop() {
         if (head == nullptr) return nullptr;
         Node* temp = head;
         head = head->next;
         temp->next = nullptr;
         return temp;
     }
+    Node* getHead() const {
+    return head;
+}
+
 };
