@@ -196,7 +196,7 @@ class AVL_tree{
             return;
         }
 
-        // Ищем элемент в дереве
+        
         if (fio < p->key) {
             delete_data(fio, p->left, h);
             if (h) {
@@ -207,7 +207,7 @@ class AVL_tree{
             if (h) {
                 balanceL(p, h);
             }
-        } else {  // Мы нашли узел для удаления
+        } else {  
             delete_node(p, h);
         }
     }
@@ -238,7 +238,7 @@ class AVL_tree{
                 q = q->left;  // Находим минимальный элемент в правом поддереве
             }
             p->key = q->key;
-            delete_data(q->key, p->right, h);  // Рекурсивное удаление минимального узла
+            delete_data(q->key, p->right, h);  
             if (h) {
                 balanceR(p, h);
             }
@@ -255,20 +255,20 @@ class AVL_tree{
     }
 	void inOrder(TreeNode* node, std::ofstream& outFile) const {
     if (node) {
-        inOrder(node->right, outFile);  // Обрабатываем правое поддерево
-        outFile << node->key.surname << " " << node->key.name << " " << node->key.patronymic << std::endl;  // Записываем в файл
-        inOrder(node->left, outFile);   // Обрабатываем левое поддерево
+        inOrder(node->right, outFile);  
+        outFile << node->key.surname << " " << node->key.name << " " << node->key.patronymic << std::endl;  
+        inOrder(node->left, outFile);   
     }
 	}
 
 	void printToFile(const std::string& filename) const {
-    std::ofstream outFile(filename);  // Открываем файл для записи
+    std::ofstream outFile(filename);  
     if (!outFile) {
         std::cerr << "Ошибка при открытии файла для записи!" << std::endl;
         return;
     }
-    inOrder(root, outFile);  // Передаем outFile в рекурсивный обход
-    outFile.close();  // Закрываем файл после записи
+    inOrder(root, outFile);  
+    outFile.close();  
 	}
 
 	

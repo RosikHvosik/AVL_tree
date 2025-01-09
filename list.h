@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
-#include "PASRSING.h" // Предполагается, что функция parseFullName реализована
+#include "PASRSING.h" 
 
 struct Node {
     std::string surname;
@@ -32,7 +32,7 @@ public:
             delete current;
             current = nextNode;
         }
-        head = nullptr; // Обнуляем указатель головы
+        head = nullptr; 
     }
 
     void add(const std::string& surname, const std::string& name, const std::string& patronymic) {
@@ -57,9 +57,9 @@ public:
 
         std::string line;
         while (std::getline(file, line)) {
-            if (line.empty()) continue; // Пропускаем пустые строки
-            auto [surname, name, patronymic] = parseFullName(line); // Разбираем строку на ФИО
-            add(surname, name, patronymic); // Добавляем в список
+            if (line.empty()) continue; 
+            auto [surname, name, patronymic] = parseFullName(line); 
+            add(surname, name, patronymic); 
         }
     }
 
